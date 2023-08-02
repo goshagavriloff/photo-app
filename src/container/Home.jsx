@@ -5,7 +5,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import {Sidebar,UserProfile } from '../components';
 
 import Pins from './Pins';
-import { client } from '../client';
+import { generateURL } from '../client';
 import logo from '../assets/logo.png';
 import { userQuery } from '../utils/data';
 export default function Home() {
@@ -16,12 +16,14 @@ export default function Home() {
   };
   const scrollRef = useRef(null);
 
-  useEffect(() => {
+  useEffect( () => {
     const query = userQuery(userInfo.id);
-    client.fetch(query).then((data) => {
-      setUser(data[0]);
-    })
-  }, []);
+    fetch(generateURL(query)).
+  then((response) => response.json()).
+  then((data) => {
+        setUser(data.result[0]);
+      })
+    }, []);
 
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0);

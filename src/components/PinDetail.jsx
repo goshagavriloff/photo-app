@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import {v4 as uuidv4} from 'uuid';
 import {MdDownloadForOffline} from 'react-icons/md';
 import { Link,useParams } from 'react-router-dom';
-import { client,urlFor } from '../client';
+import { generateURL,urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
 import Spinner from './Spinner';
@@ -18,11 +18,15 @@ const PinDetail = ({user}) => {
   const fetchPinDetails=()=>{
     let query=pinDetailQuery(pinId);
     if (query){
-      client.fetch(query).then((data)=>{
-        setPinDetail(data[0]);
+      fetch(generateURL(query)).
+      then((response) => response.json()).
+      then((data)=>{
+        setPinDetail(data.result[0]);
         if (data[0]){
           query=pinDetailMorePinQuery(data[0]);
-          client.fetch(query).then((res)=>setPins(res));
+          fetch(generateURL(query)).
+          then((response) => response.json()).
+          then((res)=>setPins(res.result));
         }
       });
     }
@@ -68,16 +72,6 @@ const PinDetail = ({user}) => {
             
           </div>
         </div>
-      )}
-      {pins?.length > 0 && (
-        <h2 className="text-center font-bold text-2xl mt-8 mb-4">
-          Загрузить остальные
-        </h2>
-      )}
-      {pins ? (
-        <MasonryLayout pins={pins} />
-      ) : (
-        <Spinner message="Loading more pins" />
       )}
     </>
   );

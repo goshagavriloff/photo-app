@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import { client } from '../client';
+import { generateURL } from '../client';
 import Spinner from './Spinner';
 import MasonryLayout from './MasonryLayout';
 import { feedQuery, searchQuery } from '../utils/data';
@@ -18,8 +18,10 @@ const Feed = () => {
     }else {
       query=feedQuery;
     }
-    client.fetch(query).then((data)=>{
-      setPins(data);
+    fetch(generateURL(query)).
+    then((response) => response.json()).
+    then((data)=>{
+      setPins(data.result);
       setLoading(false);
     });
   },[categoryId]);

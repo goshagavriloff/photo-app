@@ -1,13 +1,17 @@
-import  { createClient } from '@sanity/client';
+
 import imageUrlBuilder from '@sanity/image-url';
 
-export const client=createClient({
+const client={
     projectId:process.env.REACT_APP_SANITY_PROJECT_ID,
     dataset:'production',
-    apiVersion:'2023-07-22',
-    useCdn:true,
-    token:process.env.REACT_APP_SANITY_TOKEN
-});
+    apiVersion:'v2023-07-22'
+};
 const builder=imageUrlBuilder(client);
+
+export const generateURL=(query)=>{
+    const {projectId,dataset,apiVersion}=client;
+    query=encodeURIComponent(query);
+    return `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${query}`;
+}
 
 export const urlFor=(source)=>builder.image(source);

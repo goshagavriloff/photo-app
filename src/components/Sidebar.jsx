@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
 import { IoIosArrowForward } from 'react-icons/io';
 import logo from '../assets/logo.png';
-import { client } from '../client';
+import { generateURL } from '../client';
 import { categoryQuery } from '../utils/data';
 const isNotActiveStyle='flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize text-3xl';
 const isActiveStyle='flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize text-3xl';
@@ -13,10 +13,12 @@ const Sidebar = ({ user, closeToggle }) => {
     };
     const [categories, setCategories] = useState([]);
 
-    useEffect(() => {
+    useEffect( () => {
         const query = categoryQuery();
-        client.fetch(query).then((data) => {
-            setCategories(data);
+        fetch(generateURL(query)).
+        then((response) => response.json()).
+        then((data) => {
+            setCategories(data.result);
         })
       }, []);
 
