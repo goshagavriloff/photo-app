@@ -26,7 +26,7 @@ const Sidebar = ({ user, closeToggle }) => {
         <div className='flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar'>
             <div className='flex flex-col'>
                 <Link
-                    to="/"
+                    to="/photo-app/"
                     className='flex px-5 gap-2 my-6 pt-1 w-125 items-center '
                     onClick={handleCloseSidebar}
                 >
@@ -35,7 +35,7 @@ const Sidebar = ({ user, closeToggle }) => {
                 </Link>
                 <div className='flex flex-col gap-5'>
                     <NavLink
-                        to="/"
+                        to="/photo-app/"
                         className={({isActive})=>isActive?isActiveStyle:isNotActiveStyle}
                         onClick={handleCloseSidebar}
                     >
@@ -47,7 +47,7 @@ const Sidebar = ({ user, closeToggle }) => {
                     {categories.slice(0,categories.length-1).map((category,i)=>(
                         
                         <NavLink
-                            to={`/category/${category.url}`}
+                            to={`/photo-app/category/${category.url}`}
                             className={({isActive})=>isActive?isActiveStyle:isNotActiveStyle}
                             onClick={handleCloseSidebar}
                             key={i}

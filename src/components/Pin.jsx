@@ -20,7 +20,7 @@ const Pin = ({pin:{postedBy,image,_id,destination}}) => {
       <div
         onMouseEnter={()=>setPostHovered(true)}
         onMouseLeave={()=>setPostHovered(false)}
-        onClick={()=>navigate(`/pin-detail/${_id}`)}
+        onClick={()=>navigate(`/photo-app/pin-detail/${_id}`)}
         className="relative cursor-zoom-in w-auto hover:bg-shadow rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
       >
         {true && (

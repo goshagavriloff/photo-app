@@ -16,12 +16,12 @@ const Navbar = ({searchTerm,setSearchTerm,user}) => {
         onChange={(e)=>setSearchTerm(e.target.value)}
         placeholder='Поиск'
         value={searchTerm}
-        onFocus={()=>navigate('/search')}
+        onFocus={()=>navigate('/photo-app/search')}
         className='p-2 w-full bg-white outline-none'
         />
       </div>
       <div className='flex gap-3'>
-        <Link to="/login" className='text-xl'>
+        <Link to="/photo-app/login" className='text-xl'>
         <GoPasskeyFill/>
         </Link>
       </div>
